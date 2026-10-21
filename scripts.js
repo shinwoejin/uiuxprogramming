@@ -234,3 +234,89 @@ restartButton.addEventListener("click", () => {
     summaryQna.textContent = "";
     showStep(0);
 })
+
+// 중간시험 새기능 시작
+const incidentCount = document.querySelector("#incident-count");
+const incidentCard = document.querySelector("#incident-card");
+const incidentTitle = document.querySelector("#incident-title");
+const incidentTip = document.querySelector("#incident-tip");
+const incidentDone = document.querySelector("#incident-done");
+const incidentDraw = document.querySelector("#incident-draw");
+
+
+function makeIncidentCards() {
+    const shorter = Number(formData.duration) - 1;
+    return [
+        { title: "마이크가 갑자기 꺼졌어요", tip: "\"잠시만요\" 한마디 후 목소리를 조금 키워 이어가세요.", qnaOnly: false },
+        { title: "발표 시간이 " + formData.duration + "분에서 " + shorter + "분으로 줄었어요", tip: "예시 하나를 빼고 결론을 먼저 말하세요.", qnaOnly: false },
+        { title: "슬라이드가 넘어가지 않아요", tip: "다음 슬라이드 내용을 말로 먼저 설명하며 시간을 버세요.", qnaOnly: false },
+        { title: "머릿속이 하얘졌어요", tip: "물 한 모금 마시고 방금 한 문장을 다시 말해 보세요.", qnaOnly: false },
+        { title: "청중 반응이 너무 조용해요", tip: "\"혹시 이런 경험 있으신가요?\"처럼 가볍게 질문을 던져 보세요.", qnaOnly: false },
+        { title: "예상 못 한 질문을 받았어요", tip: "질문을 한 번 다시 말해 확인하며 생각할 시간을 확보하세요.", qnaOnly: true },
+        { title: "질문에 대한 답을 모르겠어요", tip: "\"확인 후 따로 답변드리겠습니다\"라고 솔직하게 말해도 괜찮아요.", qnaOnly: true },
+        { title: "주제와 관련 없는 질문을 받았어요", tip: "\"좋은 질문 감사합니다, 발표 후 따로 이야기 나눠요\"라고 정중히 넘기세요.", qnaOnly: true }
+    ];
+}
+
+let incidentDeck = [];
+let incidentTotal = 0;
+let incidentState = "ready"; 
+
+function updateIncidentView() {
+    incidentCount.textContent = "남은 카드 " + incidentDeck.length + "장 / 전체 " + incidentTotal + "장";
+
+    incidentCard.hidden = incidentState !== "card";
+    incidentDone.hidden = incidentState !== "done";
+
+    if (incidentState === "ready") {
+        incidentDraw.textContent = "돌발 상황 뽑기";
+    } else if (incidentState === "done") {
+        incidentDraw.textContent = "처음부터 다시 뽑기";
+    } else if (incidentDeck.length === 0) {
+        incidentDraw.textContent = "연습 마치기";
+    } else {
+        incidentDraw.textContent = "다음 상황 뽑기";
+    }
+}
+
+function resetIncidentDeck() {
+    const cards = makeIncidentCards();
+    const basicCards = cards.filter((card) => !card.qnaOnly);
+    const questionCards = cards.filter((card) => card.qnaOnly).slice(0, Number(formData.qnaCount));
+
+    incidentDeck = formData.qna ? basicCards.concat(questionCards) : basicCards;
+    incidentTotal = incidentDeck.length;
+    incidentState = "ready";
+    updateIncidentView();
+}
+
+function handleIncidentDraw() {
+    if (incidentState === "done") {
+        resetIncidentDeck();
+        return;
+    }
+
+    if (incidentDeck.length === 0) {
+        incidentState = "done";
+        updateIncidentView();
+        return;
+    }
+
+    const index = Math.floor(Math.random() * incidentDeck.length);
+    const card = incidentDeck.splice(index, 1)[0];
+
+    incidentTitle.textContent = card.title;
+    incidentTip.textContent = "대처 팁: " + card.tip;
+    incidentState = "card";
+    updateIncidentView();
+
+    incidentCard.classList.remove("is-new");
+    void incidentCard.offsetWidth;
+    incidentCard.classList.add("is-new");
+}
+
+incidentDraw.addEventListener("click", handleIncidentDraw);
+
+finishButton.addEventListener("click", resetIncidentDeck);
+
+// 중간시험 새기능 끝

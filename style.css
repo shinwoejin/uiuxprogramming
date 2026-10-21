@@ -370,10 +370,88 @@ body.dark #recording-dialog {background: #50515f; color: #fff;}
     margin-top: 20px;
 }
 
-bodt.dark .training-flow {
+body.dark .training-flow {
     background-color: #50515f;
     border-color: #2d2e38;
 }
+/* 중간시험 새기능 시작 */
+
+.incident-practice {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px dashed #deddea;
+}
+
+.incident-practice h4 {
+    margin: 0;
+    font-size: 20px;
+    color: #635bff;
+}
+
+.incident-count {
+    font-weight: 700;
+    color: #292a31;
+}
+
+.incident-card {
+    margin: 16px 0;
+    padding: 20px 24px;
+    border: 2px solid #635bff;
+    border-radius: 16px;
+    background-color: #f4f3ff;
+}
+
+.incident-card[hidden],
+.incident-done[hidden] {
+    display: none;
+}
+
+.incident-card h5 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.incident-card p {
+    margin: 0;
+}
+
+.incident-card.is-new {
+    animation: card-in 0.3s ease;
+}
+
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(8px) rotate(-1deg); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .incident-card.is-new { animation: none; }
+}
+
+.incident-done {
+    margin: 16px 0;
+    padding: 12px;
+    border-radius: 10px;
+    color: #245c3a;
+    background-color: #e7f7ed;
+    font-weight: 700;
+}
+
+body.dark .incident-count,
+body.dark .incident-card h5 {
+    color: #f4f4f8;
+}
+
+body.dark .incident-card {
+    background-color: #2d2e38;
+    border-color: #b9b5ff;
+}
+
+body.dark .incident-practice h4 {
+    color: #b9b5ff;
+}
+/* 중간시험 새기능 끝 */
 
 @media (max-width: 768px){
     body{
@@ -441,6 +519,8 @@ bodt.dark .training-flow {
     #recording-dialog .dialog-actions button {width: 100%;}
     .training-flow .step-actions {flex-direction: column-reverse;}
     .training-flow .step-actions button {width: 100%;}
-    .training-flow input[type="checkbox"]
-    .training-flow input[type="radio"] {width: auto;}
+    .training-flow input[type="checkbox"],
+    /* .training-flow input[type="radio"] {width: auto;} */
+    .training-flow input[type="radio"],
+    .agree-row input {width: auto;}
 }

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Re:hear</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,6 +213,24 @@
                 <h3>훈련 설정이 완료되었습니다</h3>
                 <p>설정한 내용을 확인했습니다. 필요하면 다시 설정할 수 있습니다.</p>
                 <button id="restart-button" type="button">다시 설정하기</button>
+                <!-- 중간시험 새기능 시작 -->
+                <div class="incident-practice">
+                    <h4>돌발 상황 대비 연습</h4>
+                    <p>실제 발표에서 생길 수 있는 상황을 뽑아 대처법을 미리 연습해 보세요.</p>
+                    <p id="incident-count" class="incident-count">남은 카드 0장</p>
+
+                    <article id="incident-card" class="incident-card" aria-live="polite" hidden>
+                        <h5 id="incident-title"></h5>
+                        <p id="incident-tip"></p>
+                    </article>
+
+                    <p id="incident-done" class="incident-done" aria-live="polite" hidden>
+                        모든 돌발 상황을 연습했어요! 처음부터 다시 연습할 수 있어요.
+                    </p>
+
+                    <button id="incident-draw" type="button">돌발 상황 뽑기</button>
+                </div>
+                <!-- 중간시험 새기능 끝 -->
             </section>
         </section>
 
