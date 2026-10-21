@@ -54,5 +54,6 @@
 - 결과 없음: 카드를 모두 뽑고 '연습 마치기' → 완료 안내와 '처음부터 다시 뽑기' 버튼 표시
 - 모바일: 좁은 화면에서 동의 체크박스 문구가 세로로 깨지는 문제를 발견해 수정함
 
-## 배포 주소
-https://shinwoejin.github.io/uiuxprogramming/
+## 주소
+배포 주소: https://shinwoejin.github.io/uiuxprogramming/
+깃허브 주소: https://github.com/shinwoejin/uiuxprogramming
