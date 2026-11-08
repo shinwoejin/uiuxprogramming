@@ -27,6 +27,7 @@
             <a href="#about">서비스 소개</a>
             <a href="#features">훈련 기능</a>
             <a href="#steps">이용 방법</a>
+            <a href="#apply">모의 발표 신청</a>
             <a href="#subscribe">훈련 소식 받기</a>
         </nav>
     </header>
@@ -233,6 +234,47 @@
                 <!-- 중간시험 새기능 끝 -->
             </section>
         </section>
+
+        <!-- 9주차 시작-->
+        <section id="apply" class="apply-card">
+            <h2>모의 발표 참가 신청</h2>
+            <p>실제 청중 앞에서 발표해 볼 수 있는 소규모 모의 발표 세션에 신청하세요.</p>
+
+            <form id="apply-form" novalidate>
+                <div class="field">
+                    <label for="apply-name">이름</label>
+                    <input type="text" id="apply-name" maxlength="10" aria-describedby="name-help">
+                    <p id="name-help" class="help">2자 이상 10자 이하로 입력해 주세요. (0 / 10자)</p>
+                </div>
+
+                <fieldset class="field" aria-describedby="session-help">
+                    <legend>참가 세션</legend>
+                    <label class="choice"><input type="radio" name="session" value="평일 저녁">평일 저녁 (19:00)</label>
+                    <label class="choice"><input type="radio" name="session" value="주말 오전">주말 오전 (10:00)</label>
+                    <label class="choice"><input type="radio" name="session" value="주말 오후">주말 오후 (15:00)</label>
+                    <p id="session-help" class="help">참가할 세션을 하나 선택해 주세요.</p>
+                </fieldset>
+
+                <div class="field">
+                    <label class="choice"><input type="checkbox" id="feedback-check">사전 피드백 요청하기</label>
+                </div>
+
+                <div id="feedback-area" class="field" hidden>
+                    <label for="feedback-memo">받고 싶은 피드백</label>
+                    <textarea id="feedback-memo" rows="3" maxlength="100" aria-describedby="memo-help" disabled></textarea>
+                    <p id="memo-help" class="help">10자 이상 입력해 주세요. (0 / 100자)</p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="apply-reset">다시 작성</button>
+                    <button type="submit" id="apply-submit">신청하기</button>
+                </div>
+            </form>
+
+            <p id="apply-message" class="apply-message" aria-live="polite"></p>
+        </section>
+
+        <!-- 9주차 끝 -->
 
         <section id="subscribe" class="subscribe-card">
             <h2> 훈련 소식 받기 </h2>

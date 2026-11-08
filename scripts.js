@@ -320,3 +320,159 @@ incidentDraw.addEventListener("click", handleIncidentDraw);
 finishButton.addEventListener("click", resetIncidentDeck);
 
 // 중간시험 새기능 끝
+
+// 9주차 시작
+const applyForm = document.querySelector("#apply-form");
+const applyName = document.querySelector("#apply-name");
+const nameHelp = document.querySelector("#name-help");
+const sessionHelp = document.querySelector("#session-help");
+const sessionRadios = document.querySelectorAll('input[name="session"]');
+const feedbackCheck = document.querySelector("#feedback-check");
+const feedbackArea = document.querySelector("#feedback-area");
+const feedbackMemo = document.querySelector("#feedback-memo");
+const memoHelp = document.querySelector("#memo-help");
+const applySubmit = document.querySelector("#apply-submit");
+const applyReset = document.querySelector("#apply-reset");
+const applyMessage = document.querySelector("#apply-message");
+const fullSession = "주말 오전";
+
+function setHelp(help, input, text, state) {
+    help.textContent = text;
+    help.classList.remove("is-error", "is-ok");
+    if (state) {
+        help.classList.add("is-" + state);
+    }
+    if (input) {
+        input.classList.toggle("has-error", state === "error");
+    }
+}
+
+function setApplyMessage(text, state) {
+    applyMessage.textContent = text;
+    applyMessage.classList.remove("is-error", "is-success");
+    if (state) {
+        applyMessage.classList.add("is-" + state);
+    }
+}
+
+function checkName() {
+    const length = applyName.value.trim().length;
+    const count = " (" + length + " / 10자)";
+
+    if (length === 0) {
+        setHelp(nameHelp, applyName, "X 이름을 입력해 주세요." + count, "error");
+        return false;
+    }
+    if (length < 2) {
+        setHelp(nameHelp, applyName, "X 이름이 너무 짧아요. 2자 이상 입력해 주세요." + count, "error");
+        return false;
+    }
+    setHelp(nameHelp, applyName, "O 입력 완료" + count, "ok");
+    return true;
+}
+
+function checkSession() {
+    const checked = document.querySelector('input[name="session"]:checked');
+
+    if (!checked) {
+        setHelp(sessionHelp, null, "X 참가할 세션을 하나 선택해 주세요.", "error");
+        return false;
+    }
+    setHelp(sessionHelp, null, "O " + checked.value + " 세션을 선택했어요.", "ok");
+    return true;
+}
+
+function checkMemo() {
+    if (!feedbackCheck.checked) {
+        return true;
+    }
+
+    const length = feedbackMemo.value.trim().length;
+    const count = " (" + length + " / 100자)";
+
+    if (length < 10) {
+        setHelp(memoHelp, feedbackMemo, "X " + (10 - length) + "자 더 입력해 주세요. 어떤 점을 봐주면 좋을지 적어 주세요." + count, "error");
+        return false;
+    }
+    setHelp(memoHelp, feedbackMemo, "O 입력 완료" + count, "ok");
+    return true;
+}
+
+applyName.addEventListener("input", checkName);
+feedbackMemo.addEventListener("input", checkMemo);
+sessionRadios.forEach(function (radio) {
+    radio.addEventListener("change", checkSession);
+});
+
+feedbackCheck.addEventListener("change", function () {
+    const show = feedbackCheck.checked;
+
+    feedbackArea.hidden = !show;
+    feedbackMemo.disabled = !show;
+
+    if (show) {
+        feedbackMemo.focus();
+    }
+});
+
+function handleApplySubmit(event) {
+    event.preventDefault();
+
+    const nameOk = checkName();
+    const sessionOk = checkSession();
+    const memoOk = checkMemo();
+
+    if (!nameOk || !sessionOk || !memoOk) {
+        setApplyMessage("X 표시된 항목을 수정한 뒤 다시 신청해 주세요.", "error");
+
+        if (!nameOk) {
+            applyName.focus();
+        } else if (!sessionOk) {
+            sessionRadios[0].focus();
+        } else {
+            feedbackMemo.focus();
+        }
+        return;
+    }
+
+    applySubmit.disabled = true;
+    applyReset.disabled = true;
+    applySubmit.textContent = "신청 중...";
+    setApplyMessage("신청을 처리하고 있어요. 잠시만 기다려 주세요.", "");
+
+    setTimeout(function () {
+        const session = document.querySelector('input[name="session"]:checked').value;
+        applyReset.disabled = false;
+
+        if (session === fullSession) {
+            setApplyMessage("X " + session + " 세션이 방금 마감되었어요. 다른 세션을 선택하고 다시 신청해 주세요.", "error");
+            applySubmit.disabled = false;
+            applySubmit.textContent = "다시 신청하기";
+            return;
+        }
+
+        setApplyMessage("O " + applyName.value.trim() + "님, " + session + " 세션 신청이 완료되었어요!", "success");
+        applySubmit.textContent = "신청 완료";
+    }, 1500);
+}
+
+applyForm.addEventListener("submit", handleApplySubmit);
+
+function resetApplyForm() {
+    applyForm.reset();
+
+    feedbackArea.hidden = true;
+    feedbackMemo.disabled = true;
+
+    setHelp(nameHelp, applyName, "2자 이상 10자 이하로 입력해 주세요. (0 / 10자)", "");
+    setHelp(sessionHelp, null, "참가할 세션을 하나 선택해 주세요.", "");
+    setHelp(memoHelp, feedbackMemo, "10자 이상 입력해 주세요. (0 / 100자)", "");
+    setApplyMessage("", "");
+
+    applySubmit.disabled = false;
+    applySubmit.textContent = "신청하기";
+    applyName.focus();
+}
+
+applyReset.addEventListener("click", resetApplyForm);
+// 9주차 끝

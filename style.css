@@ -156,7 +156,8 @@ button:hover {
 }
 
 button:focus,
-input:focus {
+input:focus,
+textarea:focus {
     outline: 3px solid #b9b5ff;
     outline-offset: 2px;
 }
@@ -453,6 +454,141 @@ body.dark .incident-practice h4 {
 }
 /* 중간시험 새기능 끝 */
 
+/* 9주차 시작 */
+.apply-card {
+    padding: 24px;
+    border: 1px solid #deddea;
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+#apply-form {
+    display: block;
+}
+
+#apply-form .field {
+    margin: 0 0 20px;
+    padding: 0;
+    border: 0;
+}
+
+#apply-form label:not(.choice),
+#apply-form legend {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+#apply-form input[type="text"],
+#apply-form textarea {
+    width: 100%;
+}
+
+#apply-form textarea {
+    padding: 12px;
+    border: 1px solid #b8b7c5;
+    border-radius: 10px;
+    font: inherit;
+    resize: vertical;
+}
+
+#apply-form .choice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+#apply-form input[type="radio"],
+#apply-form input[type="checkbox"] {
+    flex: none;
+    width: auto;
+    accent-color: #635bff;
+}
+
+#apply-form .has-error {
+    border-color: #9d243d;
+}
+
+#apply-form .help {
+    margin: 8px 0 0;
+    font-size: 15px;
+}
+
+#apply-form .help.is-error {
+    color: #9d243d;
+    font-weight: 700;
+}
+
+#apply-form .help.is-ok {
+    color: #245c3a;
+    font-weight: 700;
+}
+
+#feedback-area[hidden] {
+    display: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+#apply-reset {
+    color: #635bff;
+    background-color: #ffffff;
+    border: 1px solid #635bff;
+}
+
+#apply-reset:hover {
+    background-color: #f4f3ff;
+}
+
+#apply-submit:disabled,
+#apply-reset:disabled {
+    color: #ffffff;
+    background-color: #a8a8b2;
+    border-color: #a8a8b2;
+    cursor: not-allowed;
+}
+
+.apply-message {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.apply-message:empty {
+    display: none;
+}
+
+.apply-message.is-error {
+    color: #9d243d;
+    background-color: #fdecef;
+    font-weight: 700;
+}
+
+.apply-message.is-success {
+    color: #245c3a;
+    background-color: #e7f7ed;
+    font-weight: 700;
+}
+
+body.dark .apply-card {
+    background-color: #50515f;
+    border-color: #2d2e38;
+}
+
+body.dark #apply-form .help.is-error {
+    color: #ffb3c1;
+}
+
+body.dark #apply-form .help.is-ok {
+    color: #9be3b5;
+}
+/* 9주차 끝 */
+
 @media (max-width: 768px){
     body{
         font-size: 16px;
@@ -523,4 +659,5 @@ body.dark .incident-practice h4 {
     /* .training-flow input[type="radio"] {width: auto;} */
     .training-flow input[type="radio"],
     .agree-row input {width: auto;}
+    .form-actions {flex-direction: column-reverse;}
 }
