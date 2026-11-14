@@ -452,8 +452,11 @@ function handleApplySubmit(event) {
         }
 
         setApplyMessage("O " + applyName.value.trim() + "님, " + session + " 세션 신청이 완료되었어요!", "success");
-        applySubmit.textContent = "신청 완료";
-    }, 1500);
+        applySubmit.textContent = "신청 완료";   
+        applyHistory.push({ name: applyName.value.trim(), session: session, feedback: feedbackCheck.checked });
+        saveHistory();
+        renderHistory();
+    }, 1500);   
 }
 
 applyForm.addEventListener("submit", handleApplySubmit);
@@ -476,3 +479,103 @@ function resetApplyForm() {
 
 applyReset.addEventListener("click", resetApplyForm);
 // 9주차 끝
+
+// 10주차 시작
+const menuToggle = document.querySelector("#menu-toggle");
+const mainMenu = document.querySelector("#main-menu");
+const menuLinks = document.querySelectorAll(".menu a");
+
+function updateCurrentMenu() {
+    const hash = location.hash || "#about";
+
+    menuLinks.forEach(function (link) {
+        if (link.getAttribute("href") === hash) {
+            link.setAttribute("aria-current", "location");
+        } else {
+            link.removeAttribute("aria-current");
+        }
+    });
+}
+
+function setMenuOpen(open) {
+    mainMenu.classList.toggle("is-open", open);
+    menuToggle.setAttribute("aria-expanded", open);
+    menuToggle.textContent = open ? "메뉴 닫기" : "메뉴 열기";
+}
+
+menuToggle.addEventListener("click", function () {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    setMenuOpen(!isOpen);
+});
+
+menuLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+        setMenuOpen(false);
+    });
+});
+
+window.addEventListener("hashchange", updateCurrentMenu);
+updateCurrentMenu();
+
+const historyList = document.querySelector("#history-list");
+const historyCount = document.querySelector("#history-count");
+const historyEmpty = document.querySelector("#history-empty");
+const historyClear = document.querySelector("#history-clear");
+const filterButtons = document.querySelectorAll(".filter-button");
+
+let applyHistory = JSON.parse(localStorage.getItem("applyHistory")) || [];
+let currentFilter = "all";
+
+function saveHistory() {
+    localStorage.setItem("applyHistory", JSON.stringify(applyHistory));
+}
+
+function renderHistory() {
+    const filtered = applyHistory.filter(function (item) {
+        return currentFilter === "all" || item.session.startsWith(currentFilter);
+    });
+
+    historyList.innerHTML = "";
+    filtered.forEach(function (item) {
+        const li = document.createElement("li");
+        li.textContent = item.name + " / " + item.session + " / 피드백 " + (item.feedback ? "요청" : "없음");
+        historyList.appendChild(li);
+    });
+
+    historyCount.textContent = filtered.length + "건 표시 중 (전체 " + applyHistory.length + "건)";
+
+    if (applyHistory.length === 0) {
+        historyEmpty.textContent = "아직 신청한 모의 발표가 없어요. 위 신청 폼에서 신청해 보세요.";
+        historyEmpty.hidden = false;
+    } else if (filtered.length === 0) {
+        historyEmpty.textContent = currentFilter + " 신청 내역이 없어요. 다른 필터를 선택해 보세요.";
+        historyEmpty.hidden = false;
+    } else {
+        historyEmpty.hidden = true;
+    }
+
+    historyClear.disabled = applyHistory.length === 0;
+}
+
+filterButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        filterButtons.forEach(function (other) {
+            other.classList.remove("is-active");
+            other.setAttribute("aria-pressed", "false");
+        });
+
+        button.classList.add("is-active");
+        button.setAttribute("aria-pressed", "true");
+        currentFilter = button.dataset.filter;
+        renderHistory();
+    });
+});
+
+historyClear.addEventListener("click", function () {
+    applyHistory = [];
+    saveHistory();
+    renderHistory();
+});
+
+renderHistory();
+// 10주차 끝

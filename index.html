@@ -23,13 +23,19 @@
         <h1>발표 훈련 서비스</h1>
         <p>반복적인 연습으로 발표 불안을 줄이고, 자신감을 기릅니다.</p>
 
+        <!-- 10주차 시작 -->
         <nav aria-label="주요 메뉴">
-            <a href="#about">서비스 소개</a>
-            <a href="#features">훈련 기능</a>
-            <a href="#steps">이용 방법</a>
-            <a href="#apply">모의 발표 신청</a>
-            <a href="#subscribe">훈련 소식 받기</a>
+            <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-menu">메뉴 열기</button>
+            <ul id="main-menu" class="menu">
+                <li><a href="#about">서비스 소개</a></li>
+                <li><a href="#features">훈련 기능</a></li>
+                <li><a href="#steps">이용 방법</a></li>
+                <li><a href="#apply">모의 발표 신청</a></li>
+                <li><a href="#history">신청 내역</a></li>
+                <li><a href="#subscribe">훈련 소식 받기</a></li>
+            </ul>
         </nav>
+        <!-- 10주차 끝 -->
     </header>
 
     <main>
@@ -275,6 +281,23 @@
         </section>
 
         <!-- 9주차 끝 -->
+
+        <!-- 10주차 시작 -->
+        <section id="history" class="history-card">
+            <h2>신청 내역</h2>
+
+            <div class="filters" role="group" aria-label="신청 내역 필터">
+                <button type="button" class="filter-button is-active" data-filter="all" aria-pressed="true">전체</button>
+                <button type="button" class="filter-button" data-filter="평일" aria-pressed="false">평일</button>
+                <button type="button" class="filter-button" data-filter="주말" aria-pressed="false">주말</button>
+            </div>
+
+            <p id="history-count" class="history-count" aria-live="polite">0건 표시 중 (전체 0건)</p>
+            <ul id="history-list" class="history-list"></ul>
+            <p id="history-empty" class="history-empty" hidden></p>
+            <button id="history-clear" type="button">내역 모두 지우기</button>
+        </section>
+        <!-- 10주차 끝 -->
 
         <section id="subscribe" class="subscribe-card">
             <h2> 훈련 소식 받기 </h2>

@@ -589,6 +589,103 @@ body.dark #apply-form .help.is-ok {
 }
 /* 9주차 끝 */
 
+/* 10주차 시작 */
+.menu-toggle {
+    display: none;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu a {
+    display: block;
+    padding: 4px 0;
+    border-bottom: 3px solid transparent;
+    text-decoration: none;
+}
+
+.menu a[aria-current="location"] {
+    color: #635bff;
+    border-bottom-color: #635bff;
+}
+
+.history-card {
+    padding: 24px;
+    border: 1px solid #deddea;
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-button {
+    color: #5b5870;
+    background-color: #ffffff;
+    border: 1px solid #deddea;
+}
+
+.filter-button:hover {
+    color: #ffffff;
+}
+
+.filter-button.is-active {
+    color: #ffffff;
+    background-color: #635bff;
+    border-color: #635bff;
+    font-weight: 700;
+}
+
+.history-count {
+    font-weight: 700;
+}
+
+.history-list {
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+}
+
+.history-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #deddea;
+}
+
+.history-empty {
+    padding: 12px;
+    border-radius: 10px;
+    background-color: #ecebf2;
+}
+
+#history-clear:disabled {
+    background-color: #a8a8b2;
+    cursor: not-allowed;
+}
+
+body.dark .menu a[aria-current="location"] {
+    color: #b9b5ff;
+    border-bottom-color: #b9b5ff;
+}
+
+body.dark .history-card {
+    background-color: #50515f;
+    border-color: #2d2e38;
+}
+
+body.dark .history-empty {
+    background-color: #2d2e38;
+}
+/* 10주차 끝 */
+
 @media (max-width: 768px){
     body{
         font-size: 16px;
@@ -660,4 +757,9 @@ body.dark #apply-form .help.is-ok {
     .training-flow input[type="radio"],
     .agree-row input {width: auto;}
     .form-actions {flex-direction: column-reverse;}
+    .menu-toggle {display: block;}
+    .menu {display: none; flex-direction: column; gap: 0;}
+    .menu.is-open {display: flex;}
+    .menu a {padding: 10px 0;}
+    .filter-button {width: auto;}
 }
